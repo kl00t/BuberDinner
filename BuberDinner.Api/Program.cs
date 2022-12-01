@@ -3,11 +3,12 @@ using BuberDinner.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
-    builder.Services.AddApplication();
-    builder.Services.AddInfrastructure();
-    builder.Services.AddControllers();
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    builder.Services
+        .AddApplication()
+        .AddInfrastructure(builder.Configuration)
+        .AddControllers();
+
+    builder.Services.AddEndpointsApiExplorer().AddSwaggerGen();
 }
 
 var app = builder.Build();
