@@ -1,3 +1,4 @@
+using BuberDinner.Api.Middleware;
 using BuberDinner.Application;
 using BuberDinner.Infrastructure;
 
@@ -8,7 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
         .AddInfrastructure(builder.Configuration)
         .AddControllers();
 
-    builder.Services.AddEndpointsApiExplorer().AddSwaggerGen();
+    builder.Services
+        .AddEndpointsApiExplorer()
+        .AddSwaggerGen();
 }
 
 var app = builder.Build();
@@ -19,6 +22,7 @@ var app = builder.Build();
         app.UseSwaggerUI();
     }
 
+    app.UseMiddleware<ErrorHandlingMiddleware>();
     app.UseHttpsRedirection();
     app.MapControllers();
     app.Run();
