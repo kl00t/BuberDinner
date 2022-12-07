@@ -1,6 +1,8 @@
-﻿using BuberDinner.Application.Services;
+﻿using BuberDinner.Application.Common.Errors;
+using BuberDinner.Application.Services;
 using BuberDinner.Contracts.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using OneOf;
 
 namespace BuberDinner.Api.Controllers;
 
@@ -18,20 +20,15 @@ public class AuthenticationController : ControllerBase
     [HttpPost("register")]
     public IActionResult Register(RegisterRequest request)
     {
-        var authResult = _authenticationService.Register(
+        OneOf<AuthenticationResult, DuplicateEmailError> registerResult = _authenticationService.Register(
             request.FirstName,
             request.LastName,
             request.Email,
             request.Password);
 
-        var response = new AuthenticationResponse(
-            authResult.User.Id,
-            authResult.User.FirstName,
-            authResult.User.LastName,
-            authResult.User.Email,
-            authResult.Token);
-
-        return Ok(response);
+        return registerResult.Match(
+            authenticationResult => Ok(MapAuthenticationResult(authenticationResult)),
+            error => Problem(statusCode: StatusCodes.Status409Conflict, title: "Email already exists."));
     }
 
     [HttpPost("login")]
@@ -49,5 +46,15 @@ public class AuthenticationController : ControllerBase
             authResult.Token);
 
         return Ok(response);
+    }
+
+    private static AuthenticationResponse MapAuthenticationResult(AuthenticationResult authenticationResult)
+    {
+        return new AuthenticationResponse(
+            authenticationResult.User.Id,
+            authenticationResult.User.FirstName,
+            authenticationResult.User.LastName,
+            authenticationResult.User.Email,
+            authenticationResult.Token);
     }
 }
