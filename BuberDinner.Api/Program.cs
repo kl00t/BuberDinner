@@ -1,5 +1,7 @@
+using BuberDinner.Api.Common.Errors;
 using BuberDinner.Application;
 using BuberDinner.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -7,11 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
         .AddApplication()
         .AddInfrastructure(builder.Configuration)
         .AddControllers();
+
+    builder.Services.AddSingleton<ProblemDetailsFactory, BuberDinnerProblemDetailsFactory>();
 }
 
 var app = builder.Build();
 {
-    //app.UseMiddleware<BuberDinner.Api.Middleware.ErrorHandlingMiddleware>();
     app.UseExceptionHandler("/error");
     app.UseHttpsRedirection();
     app.MapControllers();
