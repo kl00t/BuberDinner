@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "a7171bf9-b273-4ea8-abcc-3b7e18f5e7aa",
+		"name": "BuberDinner",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24102054"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Scott\",\r\n    \"lastName\": \"Vaughan\",\r\n    \"email\": \"scott_vaughan@hotmail.com\",\r\n    \"password\": \"P@ssword123!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7170/api/Authentication/register",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7170",
+					"path": [
+						"api",
+						"Authentication",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"scott_vaughan@hotmail.com\",\r\n    \"password\": \"P@ssword123!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7170/api/Authentication/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7170",
+					"path": [
+						"api",
+						"Authentication",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
