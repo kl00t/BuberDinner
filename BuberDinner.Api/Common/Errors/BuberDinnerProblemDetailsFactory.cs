@@ -8,6 +8,11 @@ using System.Diagnostics;
 
 namespace BuberDinner.Api.Common.Errors;
 
+/// <summary>
+/// This code is creating a custom problem details factory for a BuberDinner application. 
+/// It is creating a class that will handle error handling and create a problem details object with a status code, title, type, detail, and instance. 
+/// It is also applying default values for trace ID, error codes, and client error mapping.
+/// </summary>
 public class BuberDinnerProblemDetailsFactory : ProblemDetailsFactory
 {
     private readonly ApiBehaviorOptions _options;
