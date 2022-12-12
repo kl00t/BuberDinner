@@ -12,11 +12,11 @@ namespace BuberDinner.Api.Controllers;
 [Route("api/[controller]")]
 public class AuthenticationController : ApiController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _sender;
 
-    public AuthenticationController(IMediator mediator)
+    public AuthenticationController(ISender sender)
     {
-        _mediator = mediator;
+        _sender = sender;
     }
 
     [HttpPost("register")]
@@ -24,7 +24,7 @@ public class AuthenticationController : ApiController
     {
         var command = new RegisterCommand(request.FirstName, request.LastName, request.Email, request.Password);
 
-        ErrorOr<AuthenticationResult> authenticationResult = await _mediator.Send(command);
+        ErrorOr<AuthenticationResult> authenticationResult = await _sender.Send(command);
 
         return authenticationResult.Match(
             authenticationResult => Ok(MapAuthenticationResult(authenticationResult)),
@@ -36,7 +36,7 @@ public class AuthenticationController : ApiController
     {
         var query = new LoginQuery(request.Email, request.Password);
 
-        ErrorOr<AuthenticationResult> authenticationResult = await _mediator.Send(query);
+        ErrorOr<AuthenticationResult> authenticationResult = await _sender.Send(query);
 
         if (authenticationResult.IsError && authenticationResult.FirstError == Errors.Authentication.InvalidCredentials )
         {
