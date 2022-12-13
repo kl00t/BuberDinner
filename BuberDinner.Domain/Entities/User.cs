@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace BuberDinner.Domain.Entities;
+﻿namespace BuberDinner.Domain.Entities;
 
 public class User
 {
