@@ -28,14 +28,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<A
             return Errors.User.DuplicateEmail;
         }
 
-        // TODO: replace with constructor?
-        var user = new User
-        {
-            FirstName = command.FirstName,
-            LastName = command.LastName,
-            Email = command.Email,
-            Password = command.Password,
-        };
+        var user = new User(command.FirstName, command.LastName, command.Email, command.Password);
 
         _userRepository.Add(user);
 
