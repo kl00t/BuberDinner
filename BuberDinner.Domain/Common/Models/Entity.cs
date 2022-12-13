@@ -11,7 +11,7 @@ public abstract class Entity<TId> : IEquatable<Entity<TId>> where TId : notnull
 
     public override bool Equals(object? obj)
     {
-        return obj is Entity(TId) entity && Id.Equals(entity.Id);
+        return obj is Entity<TId> entity && Equals((Entity<TId>)obj);
     }
 
     public bool Equals(Entity<TId>? other)
