@@ -1,4 +1,5 @@
 ﻿using BuberDinner.Domain.Common.Models;
+using BuberDinner.Domain.Common.ValueObjects;
 using BuberDinner.Domain.Dinner.ValueObjects;
 using BuberDinner.Domain.Host.ValueObjects;
 using BuberDinner.Domain.Menu.Entities;
@@ -19,7 +20,7 @@ public sealed class Menu : AggregateRoot<MenuId>
 
     public string Description { get; } 
 
-    public float AverageRating { get; }
+    public AverageRating AverageRating { get; }
 
     public IReadOnlyList<MenuSection> Sections => _sections.AsReadOnly();
 
